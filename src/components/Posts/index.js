@@ -13,6 +13,34 @@ class Posts extends Component{
 	}
 
 	componentDidMount(){
+
+		// request permission
+		Notification.requestPermission();
+
+		// subscribe to posts channel
+		this.posts_channel = this.props.pusher.subscribe("post-channel");
+		this.posts_channel.bind("new-post", data => {
+			// update states
+			this.setState({ posts: this.state.posts.concat(data.post) });
+
+			// check if notifications are permitted
+			if(Notification.permission === 'granted') {
+				try {
+					// notify user of new post
+					new Notification(
+						'Pusher Jjunstagram',
+						{ 
+							body: `New post from ${data.post.user.nickname}`,
+							icon: 'https://img.stackshare.io/service/115/Pusher_logo.png',
+							imaage: `${data.post.image}`,
+						}
+					);
+				} catch(e) {
+					console.log('Error displaying notification');
+				}
+			}
+		}, this);
+
         // fetch the initial posts 
         this.props.apollo_client
 			.query({ 

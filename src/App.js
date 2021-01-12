@@ -23,6 +23,14 @@ class App extends Component{
 		});
 	}
 
+	componentDidMount() {
+		if('actions' in Notification.prototype) {
+			alert('You can enjoy the notification feature');
+		} else {
+			alert('Sorry notification are NOT supported on your browser');
+		}
+	}
+
 	render(){
 		return (
 			<ApolloProvider client={client}>
