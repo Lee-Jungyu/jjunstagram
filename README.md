@@ -17,6 +17,11 @@
 </li>
 </ol>
 
+## 개발환경
+- OS: Ubuntu Linux 20.04
+- FE: ReactJS
+- BE: NodeJS(Express), GraphQL, Pusher
+
 ## 선행작업
 Node, npm 설치
 http-server 모듈 설치
